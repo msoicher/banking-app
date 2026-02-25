@@ -1,39 +1,13 @@
-export interface MoneyObject {
-  currencyCode: string;
-  value: string;
-  valueInBaseUnits: number;
-}
+// Types are generated from Up Banking's official OpenAPI spec.
+// To regenerate: npm run generate:types
+import type { components } from './up-api';
 
-export interface Account {
-  type: 'accounts';
-  id: string;
-  attributes: {
-    displayName: string;
-    accountType: 'SAVER' | 'TRANSACTIONAL' | 'HOME_LOAN';
-    ownershipType: 'INDIVIDUAL' | 'JOINT';
-    balance: MoneyObject;
-    createdAt: string;
-  };
-}
+export type Account = components['schemas']['AccountResource'];
+export type Transaction = components['schemas']['TransactionResource'];
 
-export interface Transaction {
-  type: 'transactions';
-  id: string;
-  attributes: {
-    status: 'HELD' | 'SETTLED';
-    rawText: string | null;
-    description: string;
-    message: string | null;
-    amount: MoneyObject;
-    settledAt: string | null;
-    createdAt: string;
-  };
-  relationships: {
-    account: { data: { type: string; id: string } };
-    category: { data: { type: string; id: string } | null };
-  };
-}
-
+// Generic paginated list wrapper — matches the shape of all Up list responses
+// (ListAccountsResponse, ListTransactionsResponse, etc.) but keeps our API
+// hooks generic rather than tied to a specific resource type.
 export interface UpListResponse<T> {
   data: T[];
   links: {

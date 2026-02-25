@@ -11,7 +11,9 @@ import {
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
+import AccountDetail from './pages/AccountDetail';
 
 const queryClient = new QueryClient();
 
@@ -40,26 +42,31 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppBar position="static" color="secondary" elevation={0}>
-          <Toolbar>
-            <Typography variant="h6" fontWeight={700} letterSpacing={-0.5}>
-              Up Banking
-            </Typography>
-            <IconButton
-              sx={{ ml: 'auto' }}
-              color="inherit"
-              onClick={() => setMode((m) => {
-                const next = m === 'light' ? 'dark' : 'light';
-                localStorage.setItem('theme', next);
-                return next;
-              })}
-              aria-label="Toggle dark mode"
-            >
-              {mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <Dashboard />
+        <BrowserRouter>
+          <AppBar position="static" color="secondary" elevation={0}>
+            <Toolbar>
+              <Typography variant="h6" fontWeight={700} letterSpacing={-0.5}>
+                Up Banking
+              </Typography>
+              <IconButton
+                sx={{ ml: 'auto' }}
+                color="inherit"
+                onClick={() => setMode((m) => {
+                  const next = m === 'light' ? 'dark' : 'light';
+                  localStorage.setItem('theme', next);
+                  return next;
+                })}
+                aria-label="Toggle dark mode"
+              >
+                {mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
+              </IconButton>
+            </Toolbar>
+          </AppBar>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/account/:id" element={<AccountDetail />} />
+          </Routes>
+        </BrowserRouter>
       </ThemeProvider>
     </QueryClientProvider>
   );

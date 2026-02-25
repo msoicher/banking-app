@@ -25,10 +25,11 @@ export class TransactionsService {
 
   async listTransactionsByAccount(
     accountId: string,
-    params?: { pageSize?: number; since?: string; until?: string },
+    params?: { pageSize?: number; since?: string; until?: string; pageAfter?: string },
   ) {
     return this.upApi.get(`/accounts/${accountId}/transactions`, {
       'page[size]': params?.pageSize ?? 20,
+      'page[after]': params?.pageAfter,
       'filter[since]': params?.since,
       'filter[until]': params?.until,
     });

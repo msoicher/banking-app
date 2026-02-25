@@ -6,14 +6,14 @@ import {
   Chip,
 } from '@mui/material';
 import type { Transaction } from '../types/up';
-import { formatCurrency } from '../utils/currency';
+import { renderTransactionAmount } from '../utils/renderTransactionAmount';
 
 type TransactionRowProps = {
   transaction: Transaction;
 }
 
 const TransactionRow = ({ transaction }: TransactionRowProps) => {
-  const { description, amount, createdAt, status } = transaction.attributes;
+  const { description, amount, foreignAmount, createdAt, status } = transaction.attributes;
   const isDebit = amount.valueInBaseUnits < 0;
   const date = new Date(createdAt).toLocaleDateString('en-AU', {
     day: 'numeric',
@@ -40,7 +40,7 @@ const TransactionRow = ({ transaction }: TransactionRowProps) => {
         fontWeight={600}
         color={isDebit ? 'error.main' : 'success.main'}
       >
-        {!isDebit && '+'}{formatCurrency(amount.currencyCode, amount.valueInBaseUnits)}
+        {!isDebit && '+'}{renderTransactionAmount(transaction)}
       </Typography>
     </ListItem>
   );

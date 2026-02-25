@@ -1,4 +1,5 @@
 import { Card, CardContent, Typography, Chip, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import type { Account } from '../types/up';
 import { formatCurrency } from '../utils/currency';
 
@@ -23,9 +24,14 @@ const accountTypeColor: Record<
 
 export const AccountCard = ({ account }: AccountCardProps) => {
   const { displayName, accountType, balance } = account.attributes;
+  const navigate = useNavigate();
 
   return (
-    <Card variant="outlined" sx={{ height: '100%' }}>
+    <Card
+      variant="outlined"
+      sx={{ height: '100%', cursor: 'pointer', '&:hover': { borderColor: 'primary.main' } }}
+      onClick={() => navigate(`/account/${account.id}`)}
+    >
       <CardContent>
         <Box display="flex" justifyContent="space-between" alignItems="flex-start" mb={1}>
           <Typography variant="subtitle2" color="text.secondary">

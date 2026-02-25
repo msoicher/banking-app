@@ -30,11 +30,13 @@ export class TransactionsController {
     @Query('pageSize') pageSize?: string,
     @Query('since') since?: string,
     @Query('until') until?: string,
+    @Query('pageAfter') pageAfter?: string,
   ) {
     return this.transactionsService.listTransactionsByAccount(accountId, {
       pageSize: pageSize ? parseInt(pageSize) : undefined,
       since,
       until,
+      pageAfter,
     });
   }
 
