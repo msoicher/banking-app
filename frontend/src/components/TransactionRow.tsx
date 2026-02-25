@@ -6,12 +6,13 @@ import {
   Chip,
 } from '@mui/material';
 import type { Transaction } from '../types/up';
+import { formatCurrency } from '../utils/currency';
 
-interface Props {
+type TransactionRowProps = {
   transaction: Transaction;
 }
 
-export default function TransactionRow({ transaction }: Props) {
+const TransactionRow = ({ transaction }: TransactionRowProps) => {
   const { description, amount, createdAt, status } = transaction.attributes;
   const isDebit = amount.valueInBaseUnits < 0;
   const date = new Date(createdAt).toLocaleDateString('en-AU', {
@@ -39,9 +40,10 @@ export default function TransactionRow({ transaction }: Props) {
         fontWeight={600}
         color={isDebit ? 'error.main' : 'success.main'}
       >
-        {isDebit ? '' : '+'}
-        {amount.currencyCode} {amount.value}
+        {!isDebit && '+'}{formatCurrency(amount.currencyCode, amount.valueInBaseUnits)}
       </Typography>
     </ListItem>
   );
 }
+
+export default TransactionRow;

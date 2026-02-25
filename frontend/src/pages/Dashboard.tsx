@@ -13,6 +13,7 @@ import AccountCard from '../components/AccountCard';
 import TransactionRow from '../components/TransactionRow';
 import { useAccounts } from '../api/accounts';
 import { useRecentTransactions } from '../api/transactions';
+import { formatCurrency } from '../utils/currency';
 
 export default function Dashboard() {
   const { data: accounts = [], isLoading: accountsLoading, error: accountsError } = useAccounts();
@@ -51,7 +52,7 @@ export default function Dashboard() {
         </Typography>
         <Typography variant="body1" color="text.secondary">
           Total balance:{' '}
-          <strong>AUD {(totalBalance / 100).toFixed(2)}</strong>
+          <strong>{formatCurrency('AUD', totalBalance)}</strong>
         </Typography>
       </Box>
 

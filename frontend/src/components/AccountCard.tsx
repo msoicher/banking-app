@@ -1,7 +1,8 @@
 import { Card, CardContent, Typography, Chip, Box } from '@mui/material';
 import type { Account } from '../types/up';
+import { formatCurrency } from '../utils/currency';
 
-interface Props {
+type AccountCardProps = {
   account: Account;
 }
 
@@ -20,7 +21,7 @@ const accountTypeColor: Record<
   HOME_LOAN: 'default',
 };
 
-export default function AccountCard({ account }: Props) {
+export const AccountCard = ({ account }: AccountCardProps) => {
   const { displayName, accountType, balance } = account.attributes;
 
   return (
@@ -37,9 +38,11 @@ export default function AccountCard({ account }: Props) {
           />
         </Box>
         <Typography variant="h4" fontWeight={700}>
-          {balance.currencyCode} {balance.value}
+          {formatCurrency(balance.currencyCode, balance.valueInBaseUnits)}
         </Typography>
       </CardContent>
     </Card>
   );
 }
+
+export default AccountCard;
