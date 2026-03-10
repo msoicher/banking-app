@@ -12,8 +12,8 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
-import AccountDetail from './pages/AccountDetail';
+import Dashboard from './pages/Dashboard/Dashboard';
+import AccountDetail from './pages/AccountDetail/AccountDetail';
 
 const queryClient = new QueryClient();
 
