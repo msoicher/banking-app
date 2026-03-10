@@ -13,7 +13,7 @@ type TransactionRowProps = {
 }
 
 const TransactionRow = ({ transaction }: TransactionRowProps) => {
-  const { description, amount, foreignAmount, createdAt, status } = transaction.attributes;
+  const { description, amount, createdAt, status } = transaction.attributes;
   const isDebit = amount.valueInBaseUnits < 0;
   const date = new Date(createdAt).toLocaleDateString('en-AU', {
     day: 'numeric',
